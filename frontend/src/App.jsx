@@ -1,12 +1,12 @@
 import Navbar from "./components/Navbar"
+import Home from "./components/Home"
 
 function App() {
 
   return (
     <>
       <Navbar />
-      <h1 className="text-4xl">Mern Auth Basic App</h1>
-      <p>Login functionality, users saved to mongoDB, Redux to manage state</p>
+      <Home />
     </>
   )
 }
