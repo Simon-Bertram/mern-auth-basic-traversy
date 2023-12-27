@@ -87,7 +87,34 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // route   PUT /api/users/profile
 // access  Private - jwt required for access
 const updateUserProfile = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'TODO: Update user profile' });
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    // Update user object with new values
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+
+    // If password is being updated, hash the new password
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    // Save the updated user object to the database
+    const updatedUser = await user.save();
+
+    // Generate a new token with the updated user object
+    generateToken(res, updatedUser._id);
+
+    // Return the updated user object to the client
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 });
 
 // @desc   Logout user
