@@ -1,11 +1,27 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLoginMutation } from '../redux/slices/usersApiSlice'
+import { setCredentials } from '../redux/slices/authSlice'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const [login, { isLoading }] = useLoginMutation()
+
+  const { userInfo } = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/')
+    }
+  }, [navigate, userInfo])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value })
@@ -13,7 +29,13 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('TODO: form submission logic')
+    try {
+      const res = await login(formData).unwrap()
+      dispatch(setCredentials({...res}))
+      navigate('/')
+    } catch (error) {
+      toast.error(error?.data?.message || error.error)
+    }
   }
 
   return ( 
