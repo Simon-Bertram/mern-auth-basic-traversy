@@ -10,6 +10,7 @@ import App from './App.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
+import RegisterPage from './pages/RegisterPage.jsx'
 import './index.css'
 
 const router = createBrowserRouter(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />} errorElement={<ErrorPage />} >
       <Route index={true} path="/" element={<HomePage />} />
       <Route path="login" element={<LoginPage />} />
+      <Route path="register" element={<RegisterPage />} />
     </Route>
   )
 )
