@@ -2,8 +2,8 @@ import productList from '../data/productList.json'
 
 const Home = () => {
   return ( 
-    <div className="container mx-auto">
-      <div className='grid grid-cols-3 gap-8'>
+    <div className="container mx-auto mt-14">
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 md:grid-cols-2'>
         {productList.products.map((product) => (
           <div key={product.id} className="card h-96 border-4 mb-8">
             <div className='card h-60 flex flex-col gap-12 py-10'>
