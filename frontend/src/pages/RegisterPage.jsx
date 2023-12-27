@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const RegisterPage = () => {
   const [name, setName] = useState('')
@@ -59,6 +61,7 @@ const RegisterPage = () => {
           >
             REGISTER
           </button>
+            <ToastContainer />
         </form>
       </div>
       
