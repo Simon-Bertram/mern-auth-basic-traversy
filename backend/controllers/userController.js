@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
+import generateToken from '../utils/generateToken.js';
 
 // @desc  Authenticate user & get token
 // @route POST /api/users/auth
@@ -9,7 +10,8 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (user) {
+  if (user && (await user.matchPassword(password))) {
+    generateToken(res, user._id);
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -60,7 +62,25 @@ const registerUser = asyncHandler(async (req, res) => {
 // route   GET /api/users/profile
 // access  Private - jwt required for access
 const getUserProfile = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'TODO: Get user profile' });
+  try {
+    const user = {
+      _id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+    };
+    console.log(`The user contains: ${user}` );
+
+    if (!user._id || !user.name || !user.email) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+
+    // Send a generic error response to the client
+    res.status(500).json({ error: 'Something went wrong' });
+  }
 });
 
 // @desc   Update user profile
@@ -74,7 +94,12 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // route   POST /api/users/logout
 // access  Public
 const logoutUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'TODO: Logout user' });
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(200).json({ message: 'User logged out' });
 });
 
 export {
