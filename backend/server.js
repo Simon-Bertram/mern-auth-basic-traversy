@@ -3,6 +3,7 @@ dotenv.config();
 import express from 'express';
 import connectDB from './config/db.js';
 import morgan from 'morgan';
+import userRoutes from './routes/userRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 const PORT = process.env.PORT || 5000;
@@ -14,6 +15,9 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(morgan('dev'));
+
+// Routes
+app.use('/api/users', userRoutes);
 
 app.get('/', (req, res) => {
   res.send('Server is ready');
