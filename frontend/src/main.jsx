@@ -13,7 +13,6 @@ import ErrorPage from './pages/ErrorPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
-import Cart from './components/Cart.jsx'
 import './index.css'
 
 const router = createBrowserRouter(
@@ -22,7 +21,6 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomePage />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
-      <Route path="cart" element={<Cart />} />
     </Route>
   )
 )
