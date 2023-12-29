@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
+import { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
+// import Dropdown from "./Dropdown"
+// import DropdownTwo from "./DropdownTwo"
 
 const Navbar = () => {
   const { userInfo } = useSelector((state) => state.auth)
@@ -27,9 +32,9 @@ const Navbar = () => {
             </Link>
             {userInfo ? (
               <Link to="/profile">
-                <button 
-                  className="w-10 h-10 border-2 rounded-full dropdown-toggle" 
-                  aria-haspopup="true" 
+                <button
+                  className="w-10 h-10 border-2 rounded-full dropdown-toggle"
+                  aria-haspopup="true"
                   aria-expanded="false"
                 >
                   {userInfo.name.slice(0,1).toUpperCase()}
@@ -37,11 +42,12 @@ const Navbar = () => {
               </Link>
             ) : (
               <Link to="/login">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                 </svg>
               </Link>
             )}
+            {/* <DropdownTwo />q */}
           </div>
         </nav>
       </div>
