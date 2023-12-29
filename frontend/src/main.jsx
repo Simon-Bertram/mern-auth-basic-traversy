@@ -14,6 +14,7 @@ import HomePage from './pages/HomePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import UserProfilePage from './pages/UserProfilePage.jsx'
+import Cart from './pages/CartPage.jsx'
 import './index.css'
 
 const router = createBrowserRouter(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
       <Route path="profile" element={<UserProfilePage />} />
+      <Route path="cart" element={<Cart />} />
     </Route>
   )
 )
