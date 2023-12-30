@@ -1,34 +1,51 @@
 import { Fragment } from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom'
-
-{/* <Link to="/profile">
-  <button 
-    className="w-10 h-10 border-2 rounded-full dropdown-toggle" 
-    aria-haspopup="true" 
-    aria-expanded="false"
-  >
-    {userInfo.name.slice(0,1).toUpperCase()}
-  </button>
-</Link> */}
+import { useLogoutMutation } from '../redux/slices/usersApiSlice'
+import { logout } from '../redux/slices/authSlice'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+const DropdownTwo = () => {
   const { userInfo } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const [logoutApiCall, { isLoading }] = useLogoutMutation()
+
+  const getInitials = (name) => {
+    const nameArray = name.split(' ')
+
+    if (nameArray.length === 1) {
+      return nameArray[0].slice(0, 1).toUpperCase()
+    } else {
+      return (
+        nameArray[0].slice(0, 1).toUpperCase() + nameArray[1].slice(0, 1).toUpperCase()
+      )
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      await logoutApiCall().unwrap()
+      dispatch(logout())
+      navigate('/')
+    } catch (error) {
+      toast.error(error?.data?.message || error.error)
+    }
+  }
 
   return (
-    {userInfo ? (
-      <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-          {userInfo.name.slice(0,1).toUpperCase()}
+          <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-blue-900 px-3 py-2 text-md font-semibold tracking-widest text-white shadow-sm ring-2 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-blue-800">
+          {getInitials(userInfo.name)}
             <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
           </Menu.Button>
         </div>
@@ -57,7 +74,8 @@ export default function Example() {
                 </Link>
               )}
             </Menu.Item>
-            <form method="POST" action="#">
+
+            <form onSubmit={handleSubmit}>
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -67,7 +85,7 @@ export default function Example() {
                       'block w-full px-4 py-2 text-left text-sm'
                     )}
                   >
-                    Sign out
+                    Log out
                   </button>
                 )}
               </Menu.Item>
@@ -76,12 +94,7 @@ export default function Example() {
         </Menu.Items>
       </Transition>
     </Menu>
-    }) : (
-      <Link to="/login">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-        </svg>
-      </Link>
-    )}
   )
 }
+
+export default DropdownTwo
