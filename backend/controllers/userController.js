@@ -68,7 +68,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: req.user.name,
       email: req.user.email,
     };
-    console.log(`The user contains: ${user}` );
 
     if (!user._id || !user.name || !user.email) {
       res.status(404);

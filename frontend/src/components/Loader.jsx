@@ -1,4 +1,4 @@
-import { Spinner } from 'react-bootstrap'
+import { Spinner } from '@headlessui/react'
 
 const Loader = () => {
   return ( 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast, ToastContainer } from 'react-toastify'
+import { set } from 'mongoose';
 
 const UserProfilePage = () => {
   const [name, setName] = useState('')
@@ -13,6 +14,11 @@ const UserProfilePage = () => {
   const dispatch = useDispatch()
 
   const { userInfo } = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    setName(userInfo.name)
+    setEmail(userInfo.email)
+  }, [userInfo.setName, userInfo.setEmail])
 
   const handleSubmit = (e) => {
     e.preventDefault()

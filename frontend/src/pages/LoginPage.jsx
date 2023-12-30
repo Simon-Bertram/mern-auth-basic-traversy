@@ -5,7 +5,7 @@ import { useLoginMutation } from '../redux/slices/usersApiSlice'
 import { setCredentials } from '../redux/slices/authSlice'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Loader from '../components/Loader'
+// import Loader from '../components/Loader'
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' })
