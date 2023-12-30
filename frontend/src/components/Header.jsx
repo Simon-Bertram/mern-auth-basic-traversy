@@ -4,7 +4,7 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 // import Dropdown from "./Dropdown"
-import Dropdown from "./DropdownTwo"
+import Dropdown from "./Dropdown"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')

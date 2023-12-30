@@ -5,6 +5,7 @@ import { useLoginMutation } from '../redux/slices/usersApiSlice'
 import { setCredentials } from '../redux/slices/authSlice'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Loader from '../components/Loader'
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' })
@@ -61,7 +62,7 @@ const Login = () => {
             disabled={loading}
             className="bg-blue-800 text-white p-3 rounded-lg uppercase hover:opacity-80 disabled:opacity-50"
           >
-            {loading ? 'Loading' : 'Login'}
+            {loading ? <Loader /> : 'Login'}
           </button>
         </form>
         <div className='mt-5'>
