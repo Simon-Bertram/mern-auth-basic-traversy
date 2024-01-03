@@ -13,7 +13,7 @@ const Loader = () => {
       }}
     >
     </Spinner>
-   );
+   )
 }
  
-export default Loader;
+export default Loader
