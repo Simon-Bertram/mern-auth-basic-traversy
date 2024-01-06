@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 import connectDB from './config/db.js';
 import morgan from 'morgan';
 import session from 'express-session';
+// Import the passport configuration function from the lib/auth.js file
+import passportConfig from './lib/auth.js';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import userRoutes from './routes/userRoutes.js';
@@ -30,6 +32,8 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
   }
 }));
+// Add the passport configuration to the middleware stack
+passportConfig(app);
 
 // Routes
 app.use('/api/users', userRoutes);

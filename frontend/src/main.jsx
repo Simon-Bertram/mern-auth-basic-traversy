@@ -11,6 +11,7 @@ import { Provider } from 'react-redux'
 import App from './App.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import HomePage from './pages/HomePage.jsx'
+import PassportLoginPage from './pages/PassportLoginPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import UserProfilePage from './pages/UserProfilePage.jsx'
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />} errorElement={<ErrorPage />} >
       <Route index={true} path="/" element={<HomePage />} />
       <Route path="cart" element={<Cart />} />
+      <Route path="passportlogin" element={<PassportLoginPage />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
       {/* Private Routes */}
